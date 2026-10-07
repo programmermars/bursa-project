@@ -1,0 +1,10 @@
+.env
+index/
+data/raw/*.pdf
+!data/raw/.gitkeep
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+.streamlit/secrets.toml
