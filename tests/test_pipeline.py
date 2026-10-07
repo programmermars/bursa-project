@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from make_sample_report import main as make_sample  # noqa: E402
 from rag.config import Settings  # noqa: E402
 from rag.evaluate import load_questions, results_markdown, retrieval_metrics  # noqa: E402
-from rag.generate import answer, parse_citations  # noqa: E402
+from rag.generate import answer, format_sources, parse_citations  # noqa: E402
 from rag.index import Index, build_index  # noqa: E402
 from rag.ingest import parse_filename, split_text  # noqa: E402
 from rag.retrieve import retrieve, rrf  # noqa: E402
@@ -132,7 +132,8 @@ def test_run_all_end_to_end(tmp_path, monkeypatch):
                  groq_api_key="test", ollama_url="http://127.0.0.1:9")
     out = run_all(s, update_docs=False, eval_dir=ev, log=lambda *_: None)
     assert out["settings"].embed_backend == "tfidf" and out["generation"]["citation_validity"] == 1.0
-    assert out["compare"]["other_size"] == 600 and not (tmp_path / "index_chunk600").exists()
+    assert [c["label"] for c in out["compare"]] == ["Chunk size 600", "Section prefix off"]
+    assert not list(tmp_path.glob("index_*"))
     assert (ev / "questions_auto.csv").exists() and "## Missed questions" not in (ev / "results.md").read_text()
 
 
@@ -144,3 +145,24 @@ def test_rebuild_in_same_process(tmp_path):
     Index(s)
     build_index(s, log=lambda *_: None)
     assert len(Index(s).chunks) > 0
+
+
+def test_section_detection():
+    from rag.ingest import detect_section
+    assert detect_section("KLK Annual Report 2025  87\nAUDIT AND RISK COMMITTEE\nREPORT\nThe Committee met") == "Audit Committee Report"
+    assert detect_section("Statement on Risk Management and Internal\nControl\nThe Board") == \
+        "Statement on Risk Management and Internal Control"
+    assert detect_section("Independent Auditors’ Report\nto the members") == "Independent Auditors' Report"
+    toc = "Contents\nChairman's Statement 4\nSustainability Statement 40\nAudit Committee Report 90\nIndependent Auditors' Report 120"
+    assert detect_section(toc) == "Contents"
+    body = "Revenue grew.\n" * 6 + "as set out in the Audit Committee Report on page 90"
+    assert detect_section(body) is None  # a mention deep in the page is not a heading
+
+
+def test_sections_carried_and_indexed(index):
+    s, idx = index
+    by_page = {c.page: c.section for c in idx.chunks}
+    assert by_page[4] == "Audit Committee Report" and by_page[6] == "Independent Auditors' Report"
+    hits = retrieve(idx, "How many times did the Audit Committee meet?", k=3)
+    assert "Audit Committee Report" in format_sources(hits)
+    assert idx.meta["context_prefix"] is True

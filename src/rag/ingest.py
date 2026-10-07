@@ -16,6 +16,7 @@ class Chunk:
     source: str
     page: int  # 1-based page number as printed by the PDF viewer
     text: str
+    section: str = ""  # annual report section the page belongs to, e.g. "Audit Committee Report"
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -38,6 +39,40 @@ def clean_text(text: str) -> str:
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
+
+
+# Standard sections of a Bursa Malaysia annual report (Main Market Listing Requirements / MCCG disclosures).
+SECTIONS = [
+    ("Statement on Risk Management and Internal Control", r"statement on risk management (?:and|&) internal control"),
+    ("Audit Committee Report", r"(?:audit (?:and risk |& risk )?committee report|report of the audit (?:and risk )?committee)"),
+    ("Independent Auditors' Report", r"independent auditors?[’']? report"),
+    ("Key Audit Matters", r"^key audit matters?"),
+    ("Internal Audit Function", r"^internal audit function"),
+    ("Sustainability Statement", r"sustainability (?:statement|report)"),
+    ("Corporate Governance Overview Statement", r"corporate governance overview statement"),
+    ("Management Discussion and Analysis", r"management[’']?s? discussion (?:and|&) analysis"),
+    ("Chairman's Statement", r"chairman[’']?s (?:statement|message|letter)"),
+    ("Directors' Report", r"^directors[’']? report"),
+    ("Financial Highlights", r"(?:five[- ]year )?financial highlights"),
+    ("Financial Statements", r"(?:statements? of (?:financial position|profit or loss|comprehensive income|cash flows)|notes to the financial statements)"),
+    ("Corporate Information", r"^corporate information"),
+]
+_SECTION_RES = [(name, re.compile(rx, re.I | re.M)) for name, rx in SECTIONS]
+
+
+def detect_section(text: str, head_lines: int = 6) -> str | None:
+    """Section named in the heading area of a page; "Contents" if the page lists many sections; None if no heading.
+
+    Checks each of the first lines and each pair of consecutive lines joined (headings often wrap onto two lines).
+    """
+    if len({name for name, rx in _SECTION_RES if rx.search(text)}) >= 4:
+        return "Contents"
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()][:head_lines]
+    candidates = lines + [f"{a} {b}" for a, b in zip(lines, lines[1:])]
+    for name, rx in _SECTION_RES:
+        if any(rx.search(c) for c in candidates):
+            return name
+    return None
 
 
 def split_text(text: str, size: int, overlap: int) -> list[str]:
@@ -73,12 +108,19 @@ def load_pdf(path: Path, size: int, overlap: int) -> list[Chunk]:
     company, year = parse_filename(path)
     reader = PdfReader(str(path))
     out: list[Chunk] = []
+    section = ""
     for page_no, page in enumerate(reader.pages, start=1):
         text = clean_text(page.extract_text() or "")
+        found = detect_section(text)
+        if found == "Contents":
+            found, section = "Contents", ""  # do not carry the contents page into the next page
+        elif found:
+            section = found  # a section continues on following pages until the next heading
         if len(text) < 40:  # cover pages, photos, scanned pages without text
             continue
         for i, piece in enumerate(split_text(text, size, overlap)):
-            out.append(Chunk(f"{company}_{year}_p{page_no}_c{i}", company, year, path.name, page_no, piece))
+            out.append(Chunk(f"{company}_{year}_p{page_no}_c{i}", company, year, path.name, page_no, piece,
+                             found if found == "Contents" else section))
     return out
 
 

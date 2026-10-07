@@ -21,6 +21,13 @@ def tokenize(text: str) -> list[str]:
     return re.findall(r"[a-z0-9]+(?:\.[0-9]+)?", text.lower())
 
 
+def index_text(c: Chunk) -> str:
+    """Text that is embedded and keyword-indexed: the chunk plus where it comes from, so a passage that says only
+    "the Committee met five times" can still match a question about the Audit Committee."""
+    where = f"{c.company} {c.year} annual report" + (f", {c.section}" if c.section else "")
+    return f"{where}.\n{c.text}"
+
+
 def build_index(settings, raw_dir: Path | None = None, index_dir: Path | None = None, log=print) -> int:
     raw_dir = raw_dir or settings.raw_dir
     index_dir = index_dir or settings.index_dir
@@ -32,7 +39,7 @@ def build_index(settings, raw_dir: Path | None = None, index_dir: Path | None = 
         shutil.rmtree(index_dir)
     index_dir.mkdir(parents=True)
 
-    texts = [c.text for c in chunks]
+    texts = [index_text(c) if settings.context_prefix else c.text for c in chunks]
     embedder = make_embedder(settings)
     embedder.fit(texts)
     log(f"Embedding with {embedder.name} ...")
@@ -47,7 +54,8 @@ def build_index(settings, raw_dir: Path | None = None, index_dir: Path | None = 
             ids=[c.chunk_id for c in part],
             embeddings=vectors[i:i + 500].tolist(),
             documents=[c.text for c in part],
-            metadatas=[{"company": c.company, "year": c.year, "source": c.source, "page": c.page} for c in part],
+            metadatas=[{"company": c.company, "year": c.year, "source": c.source, "page": c.page, "section": c.section}
+                       for c in part],
         )
 
     with open(index_dir / "bm25.pkl", "wb") as f:
@@ -56,7 +64,8 @@ def build_index(settings, raw_dir: Path | None = None, index_dir: Path | None = 
         json.dump([c.to_dict() for c in chunks], f)
     with open(index_dir / "meta.json", "w") as f:
         json.dump({"embedder": embedder.name, "backend": settings.embed_backend, "chunks": len(chunks),
-                   "chunk_size": settings.chunk_size, "chunk_overlap": settings.chunk_overlap}, f, indent=2)
+                   "chunk_size": settings.chunk_size, "chunk_overlap": settings.chunk_overlap,
+                   "context_prefix": settings.context_prefix}, f, indent=2)
     log(f"Index saved to {index_dir}")
     return len(chunks)
 

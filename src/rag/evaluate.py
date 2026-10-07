@@ -81,7 +81,8 @@ def results_markdown(retrieval: list[dict], generation: dict | None, meta: dict)
     lines = [
         "# Evaluation results", "",
         f"Index: `{meta['embedder']}`, {meta['chunks']} chunks "
-        f"(size {meta['chunk_size']}, overlap {meta['chunk_overlap']}).", "",
+        f"(size {meta['chunk_size']}, overlap {meta['chunk_overlap']}, section prefix "
+        f"{'on' if meta.get('context_prefix') else 'off'}).", "",
         "## Retrieval", "",
         "| Mode | k | Questions | Hit@k | Recall@k | MRR |", "|---|---|---|---|---|---|",
     ]

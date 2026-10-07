@@ -8,6 +8,8 @@ Ask questions about risks, internal control and audit matters in Malaysian liste
 >
 > **Also in this repository:** [audit-analytics/](audit-analytics/), audit data analytics (duplicate payments, split purchases, ghost vendors, journal entry testing, Benford's law, planned-vs-actual estate operations) scored against planted irregularities.
 
+![Demo on the fictional sample report, search-only mode](docs/screenshot_sample.png)
+
 ## The problem
 
 Internal auditors, risk analysts and investors read annual reports of 200+ pages to answer narrow questions: *What are the principal risks? What did the Audit Committee review? What key audit matters did the external auditor raise?* Keyword search misses paraphrases ("stock shortage" vs "inventory loss"), and a chatbot without sources cannot be trusted in an audit setting.
@@ -33,8 +35,8 @@ flowchart LR
 
 | Layer | Choice | Why |
 |---|---|---|
-| Parsing | `pypdf`, one record per page | Keeps page numbers for citations |
-| Chunking | Sentence-aware, overlapping | Avoids cutting a risk description in half |
+| Parsing | `pypdf`, one record per page, section detected from headings | Keeps page numbers and report sections for citations |
+| Chunking | Sentence-aware, overlapping, prefixed with company/year/section | Avoids cutting a risk description in half; gives each passage its context |
 | Embeddings | `nomic-embed-text` (Ollama), `bge-small` (optional), TF-IDF/LSA (offline fallback) | Free, local; fallback needs no download |
 | Vector store | Chroma (HNSW index, cosine) | Persistent, no server needed |
 | Keyword search | BM25 | Catches exact terms: company names, "RM", standard names |
@@ -84,11 +86,15 @@ No GPU? Set `LLM_PROVIDER=groq` and a free key from [console.groq.com](https://c
 
 | Search mode | Questions | Hit@5 | Recall@5 | MRR |
 |---|---|---|---|---|
-| bm25 | 7 | 1.00 | 1.00 | 0.90 |
+| bm25 | 7 | 1.00 | 1.00 | 0.93 |
 | vector | 7 | 1.00 | 1.00 | 0.83 |
 | hybrid | 7 | 1.00 | 1.00 | 0.83 |
 
-Chunk size 600 vs 900 (hybrid): Hit@5 1.00 vs 1.00, MRR 0.90 vs 0.83.
+| Variant (hybrid search) | Hit@5 | MRR |
+|---|---|---|
+| Current: chunk 900, section prefix on | 1.00 | 0.83 |
+| Chunk size 600 | 1.00 | 0.90 |
+| Section prefix off | 1.00 | 0.83 |
 
 Best search mode: **bm25**. Hybrid missed 0 question(s). Details in [eval/results.md](eval/results.md).
 

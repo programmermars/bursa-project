@@ -22,7 +22,7 @@
       "n": 7,
       "hit_at_k": 1.0,
       "recall_at_k": 1.0,
-      "mrr": 0.9047619047619048,
+      "mrr": 0.9285714285714286,
       "per_question": [
         {
           "id": "DemoPlantation_risks",
@@ -60,10 +60,10 @@
           "first_rank": 1,
           "retrieved_pages": [
             5,
-            4,
             1,
-            6,
-            3
+            4,
+            3,
+            2
           ],
           "expected_pages": [
             5
@@ -88,7 +88,10 @@
           "first_rank": 1,
           "retrieved_pages": [
             6,
-            4
+            4,
+            1,
+            2,
+            5
           ],
           "expected_pages": [
             6
@@ -112,11 +115,11 @@
           "id": "DemoPlantation_revenue",
           "question": "What was the group's revenue for the financial year?",
           "hit": true,
-          "first_rank": 3,
+          "first_rank": 2,
           "retrieved_pages": [
             5,
-            4,
             2,
+            4,
             3
           ],
           "expected_pages": [
@@ -295,9 +298,9 @@
           "retrieved_pages": [
             5,
             4,
-            6,
             1,
-            3
+            3,
+            6
           ],
           "expected_pages": [
             5
@@ -328,8 +331,8 @@
             6,
             4,
             5,
-            2,
-            1
+            1,
+            2
           ],
           "expected_pages": [
             6
@@ -357,8 +360,8 @@
           "hit": true,
           "first_rank": 3,
           "retrieved_pages": [
-            4,
             5,
+            4,
             2,
             3,
             1
@@ -371,9 +374,16 @@
     }
   ],
   "generation": null,
-  "chunk_compare": {
-    "other_size": 600,
-    "hit_at_k": 1.0,
-    "mrr": 0.9047619047619048
-  }
+  "comparisons": [
+    {
+      "label": "Chunk size 600",
+      "hit_at_k": 1.0,
+      "mrr": 0.9047619047619048
+    },
+    {
+      "label": "Section prefix off",
+      "hit_at_k": 1.0,
+      "mrr": 0.8333333333333333
+    }
+  ]
 }

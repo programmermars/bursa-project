@@ -36,7 +36,8 @@ class Answer:
 
 def format_sources(hits: list[Hit]) -> str:
     return "\n\n".join(
-        f"[S{n}] ({h.chunk.company} {h.chunk.year}, page {h.chunk.page})\n{h.chunk.text}"
+        f"[S{n}] ({h.chunk.company} {h.chunk.year}, page {h.chunk.page}"
+        + (f", {h.chunk.section}" if h.chunk.section else "") + f")\n{h.chunk.text}"
         for n, h in enumerate(hits, start=1)
     )
 

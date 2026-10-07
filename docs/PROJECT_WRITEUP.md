@@ -45,11 +45,11 @@ flowchart LR
 
 Step by step:
 
-1. **Ingest** (`src/rag/ingest.py`). Each PDF page is read separately so every chunk keeps its page number. The filename (`KLK_2025_annual_report.pdf`) gives company and year. Pages with under 40 characters of text (covers, photos, scans) are skipped.
+1. **Ingest** (`src/rag/ingest.py`). Each PDF page is read separately so every chunk keeps its page number. The filename (`KLK_2025_annual_report.pdf`) gives company and year. Pages with under 40 characters of text (covers, photos, scans) are skipped. Each page is also tagged with its **report section** (Audit Committee Report, Statement on Risk Management and Internal Control, Independent Auditors' Report, Sustainability Statement and 9 others), detected from the page heading, including headings that wrap onto two lines, and carried over to following pages until the next heading. The contents page is recognised and not carried over.
 2. **Chunk.** Text is split on sentence/paragraph boundaries into ~900-character pieces with 150 characters of overlap, so a risk description is rarely cut in half.
-3. **Index** (`src/rag/index.py`). Two indexes over the same chunks: a Chroma vector store (cosine similarity, HNSW) and a BM25 keyword index.
+3. **Index** (`src/rag/index.py`). Two indexes over the same chunks: a Chroma vector store (cosine similarity, HNSW) and a BM25 keyword index. Before indexing, each chunk is prefixed with *"KLK 2025 annual report, Audit Committee Report."* This is a no-cost version of contextual retrieval: a passage that only says "the Committee met five times" can still match a question about the Audit Committee.
 4. **Retrieve** (`src/rag/retrieve.py`). Both indexes return their top 20; **Reciprocal Rank Fusion** merges them (score = Σ 1/(60 + rank)). RRF needs no weight tuning, which matters because the label set is too small to tune on. A company filter restricts search to one report.
-5. **Generate** (`src/rag/generate.py`). The top 5 passages are numbered `[S1]…[S5]` with company and page. The model is told to answer only from them, cite after every sentence, and say "Not found" otherwise. Temperature is 0. Citations are parsed back to pages; citations to non-existent sources are flagged.
+5. **Generate** (`src/rag/generate.py`). The top 5 passages are numbered `[S1]…[S5]` with company, page and section. The model is told to answer only from them, cite after every sentence, and say "Not found" otherwise. Temperature is 0. Citations are parsed back to pages; citations to non-existent sources are flagged.
 6. **Evaluate** (`src/rag/evaluate.py`). See section 6.
 
 ## 4. Key design decisions and why
@@ -72,7 +72,7 @@ Step by step:
 | Financial QA benchmarks | FinanceBench (Patronus AI, 2023) on US 10-K filings | Shows real difficulty: the paper reports that GPT-4-Turbo with a shared retrieval store answered incorrectly or refused on most questions | US filings, not Bursa; focused on numbers | Annual-report QA is hard; measure it and expect failures, especially on tables |
 | RAG evaluation frameworks | Ragas (faithfulness, context recall) | Standard metric names | Uses an LLM as judge (cost, bias) | Metric ideas; I use page labels instead of a judge |
 | Hybrid search + rank fusion | Cormack et al. 2009 (RRF); common in Elasticsearch/Weaviate | Robust, no tuning | Two indexes to maintain | Used directly |
-| Contextual Retrieval | Anthropic, 2024: add a short context to each chunk before indexing, plus BM25 and re-ranking | Large reported drop in retrieval failures | One LLM call per chunk at index time | Planned next step (cheap version: prefix company + section title) |
+| Contextual Retrieval | Anthropic, 2024: add a short context to each chunk before indexing, plus BM25 and re-ranking | Large reported drop in retrieval failures | One LLM call per chunk at index time | Implemented without the LLM call: each chunk is prefixed with company, year and detected section; `rag run` measures it on vs off |
 | Re-ranking | Cross-encoders such as bge-reranker | Better top-1 accuracy | Extra model, slower | Planned next step |
 | Layout-aware parsing | Docling, pdfplumber, Camelot | Tables survive | Heavier setup | Planned for financial-figure questions |
 
@@ -108,11 +108,15 @@ Filled in automatically by `rag run` after the reports are uploaded.
 
 | Search mode | Questions | Hit@5 | Recall@5 | MRR |
 |---|---|---|---|---|
-| bm25 | 7 | 1.00 | 1.00 | 0.90 |
+| bm25 | 7 | 1.00 | 1.00 | 0.93 |
 | vector | 7 | 1.00 | 1.00 | 0.83 |
 | hybrid | 7 | 1.00 | 1.00 | 0.83 |
 
-Chunk size 600 vs 900 (hybrid): Hit@5 1.00 vs 1.00, MRR 0.90 vs 0.83.
+| Variant (hybrid search) | Hit@5 | MRR |
+|---|---|---|
+| Current: chunk 900, section prefix on | 1.00 | 0.83 |
+| Chunk size 600 | 1.00 | 0.90 |
+| Section prefix off | 1.00 | 0.83 |
 
 Best search mode: **bm25**. Hybrid missed 0 question(s). Details in [eval/results.md](../eval/results.md).
 
@@ -133,9 +137,9 @@ Best search mode: **bm25**. Hybrid missed 0 question(s). Details in [eval/result
 ## 9. Next steps
 
 1. Re-ranking with a cross-encoder after hybrid search; measure the MRR change.
-2. Cheap contextual retrieval: prefix each chunk with company, year and section heading.
-3. Table-aware parsing (pdfplumber/Docling) for financial figures.
-4. Structured extraction: each company's risk register as JSON, compared across companies and years.
+2. Table-aware parsing (pdfplumber/Docling) for financial figures.
+3. Structured extraction: each company's risk register as JSON, compared across companies and years.
+4. A section filter in the app (e.g. search only the Audit Committee Report).
 
 ## 10. Reproduce it
 

@@ -57,7 +57,7 @@ with st.sidebar:
     if uploads:
         st.caption("Will save as: " + ", ".join(names))
     st.caption(f"Reports already in data/raw: {len(list(settings.raw_dir.glob('*.pdf')))}")
-    if st.button("Build index and evaluate", type="primary", use_container_width=True,
+    if st.button("Build index and evaluate", type="primary", width="stretch",
                  help="Saves the uploads, builds the search index, generates test questions, scores the system "
                       "and updates README.md / eval/results.md. Same as `rag run`."):
         settings.raw_dir.mkdir(parents=True, exist_ok=True)
@@ -95,7 +95,7 @@ examples = [
 ]
 cols = st.columns(len(examples))
 for col, ex in zip(cols, examples):
-    if col.button(ex, use_container_width=True):
+    if col.button(ex, width="stretch"):
         st.session_state["q"] = ex
 
 question = st.text_input("Your question", key="q")
@@ -113,5 +113,6 @@ if question:
     st.subheader("Sources")
     for n, h in enumerate(hits, start=1):
         cited = "✅ cited" if n in ans.citations else ""
-        with st.expander(f"[S{n}] {h.chunk.company} {h.chunk.year} · page {h.chunk.page} · score {h.score:.3f} {cited}"):
+        section = f" · {h.chunk.section}" if h.chunk.section else ""
+        with st.expander(f"[S{n}] {h.chunk.company} {h.chunk.year} · page {h.chunk.page}{section} · score {h.score:.3f} {cited}"):
             st.write(h.chunk.text)

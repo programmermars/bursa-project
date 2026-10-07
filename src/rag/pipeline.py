@@ -5,7 +5,7 @@
 3. Build the index.
 4. Use hand-labelled eval/questions.csv if it has rows, else generate eval/questions_auto.csv.
 5. Evaluate retrieval (bm25 / vector / hybrid) and, if an LLM is available, citations and abstention.
-6. Compare a second chunk size on hybrid retrieval.
+6. Compare variants on hybrid retrieval: a second chunk size, and the section prefix switched off/on.
 7. Write eval/results.md and update the results blocks in README.md and docs/PROJECT_WRITEUP.md.
 """
 from __future__ import annotations
@@ -120,9 +120,10 @@ def _summary_md(reports, retrieval, generation, compare, meta, s, label_kind, k)
                   f"| Citation precision | {generation['citation_precision']:.2f} |",
                   f"| Abstention accuracy | {'n/a' if ab is None else f'{ab:.2f}'} |"]
     if compare:
-        lines += ["", f"Chunk size {compare['other_size']} vs {meta['chunk_size']} (hybrid): "
-                  f"Hit@{k} {compare['hit_at_k']:.2f} vs {hyb['hit_at_k']:.2f}, "
-                  f"MRR {compare['mrr']:.2f} vs {hyb['mrr']:.2f}."]
+        lines += ["", f"| Variant (hybrid search) | Hit@{k} | MRR |", "|---|---|---|",
+                  f"| Current: chunk {meta['chunk_size']}, section prefix "
+                  f"{'on' if meta.get('context_prefix') else 'off'} | {hyb['hit_at_k']:.2f} | {hyb['mrr']:.2f} |",
+                  *[f"| {c['label']} | {c['hit_at_k']:.2f} | {c['mrr']:.2f} |" for c in compare]]
     misses = [q["id"] for q in hyb["per_question"] if not q["hit"]]
     lines += ["", f"Best search mode: **{best['mode']}**. Hybrid missed {len(misses)} question(s)"
               + (f": {', '.join(misses)}." if misses else ".") + " Details in [eval/results.md](eval/results.md)."]
@@ -148,7 +149,7 @@ def update_block(path: Path, body: str, rel_fix: str = "") -> bool:
     return True
 
 
-def run_all(s, compare_size: int | None = 600, with_llm: bool = True, update_docs: bool = True,
+def run_all(s, compare_size: int | None = 600, compare_prefix: bool = True, with_llm: bool = True, update_docs: bool = True,
             eval_dir: Path | None = None, log=print) -> dict:
     eval_dir = eval_dir or ROOT / "eval"
     log("== 1/6 Checking setup")
@@ -179,17 +180,23 @@ def run_all(s, compare_size: int | None = 600, with_llm: bool = True, update_doc
         except RuntimeError as e:
             log(f"! LLM evaluation skipped: {e}")
 
-    compare = None
+    variants = []
     if compare_size and compare_size != s.chunk_size:
-        log(f"== 6/6 Comparing chunk size {compare_size}")
-        alt_dir = s.index_dir.parent / f"{s.index_dir.name}_chunk{compare_size}"
-        alt = dataclasses.replace(s, chunk_size=compare_size, chunk_overlap=min(s.chunk_overlap, compare_size // 4),
-                                  index_dir=alt_dir)
+        variants.append((f"Chunk size {compare_size}", "chunk", {"chunk_size": compare_size,
+                         "chunk_overlap": min(s.chunk_overlap, compare_size // 4)}))
+    if compare_prefix:
+        variants.append((f"Section prefix {'off' if s.context_prefix else 'on'}", "prefix",
+                         {"context_prefix": not s.context_prefix}))
+    compare = []
+    for n, (label, tag, changes) in enumerate(variants, start=1):
+        log(f"== 6/6 Comparison {n}/{len(variants)}: {label}")
+        alt_dir = s.index_dir.parent / f"{s.index_dir.name}_{tag}"
+        alt = dataclasses.replace(s, index_dir=alt_dir, **changes)
         build_index(alt, log=lambda *_: None)
         r = retrieval_metrics(Index(alt), qs, k, "hybrid")
-        compare = {"other_size": compare_size, "hit_at_k": r["hit_at_k"], "mrr": r["mrr"]}
+        compare.append({"label": label, "hit_at_k": r["hit_at_k"], "mrr": r["mrr"]})
         shutil.rmtree(alt_dir, ignore_errors=True)
-        log(f"chunk {compare_size}: Hit@{k}={r['hit_at_k']:.2f}  MRR={r['mrr']:.2f}")
+        log(f"{label}: Hit@{k}={r['hit_at_k']:.2f}  MRR={r['mrr']:.2f}")
 
     out = eval_dir / "results.md"
     summary = _summary_md(reports, retrieval, generation, compare, idx.meta, s, label_kind, k)
@@ -198,7 +205,7 @@ def run_all(s, compare_size: int | None = 600, with_llm: bool = True, update_doc
     out.with_suffix(".json").write_text(json.dumps(
         {"reports": reports, "settings": {"embed": s.embed_backend, "llm": s.llm_provider, "chunk_size": s.chunk_size},
          "questions": str(q_path.name), "label_kind": label_kind, "retrieval": retrieval,
-         "generation": generation, "chunk_compare": compare}, indent=2, default=str), encoding="utf-8")
+         "generation": generation, "comparisons": compare}, indent=2, default=str), encoding="utf-8")
     log(f"Saved {out}")
     if update_docs:
         for doc, fix in ((ROOT / "README.md", ""), (ROOT / "docs" / "PROJECT_WRITEUP.md", "../")):

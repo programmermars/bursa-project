@@ -29,6 +29,8 @@ class Settings:
     # Chunking
     chunk_size: int = int(_env("RAG_CHUNK_SIZE", "900"))
     chunk_overlap: int = int(_env("RAG_CHUNK_OVERLAP", "150"))
+    # Prefix each chunk with "company, year, section" before indexing (cheap contextual retrieval)
+    context_prefix: bool = _env("RAG_CONTEXT_PREFIX", "1") not in ("0", "false", "False")
 
     # Embeddings: ollama | hf | tfidf
     embed_backend: str = _env("EMBED_BACKEND", "ollama")

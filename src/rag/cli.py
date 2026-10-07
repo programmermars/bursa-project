@@ -24,7 +24,8 @@ from .retrieve import retrieve
 
 
 def cmd_run(args, s):
-    run_all(s, compare_size=None if args.no_compare else args.compare_chunk, with_llm=not args.no_llm,
+    run_all(s, compare_size=None if args.no_compare else args.compare_chunk, compare_prefix=not args.no_compare,
+            with_llm=not args.no_llm,
             update_docs=not args.no_docs)
 
 
@@ -38,7 +39,8 @@ def cmd_ask(args, s):
     ans = answer(s, args.question, hits, provider=args.provider)
     print(ans.text, "\n\nSources:")
     for n, h in enumerate(hits, start=1):
-        print(f"  [S{n}] {h.chunk.company} {h.chunk.year} p.{h.chunk.page}  score={h.score:.3f}")
+        section = f"  {h.chunk.section}" if h.chunk.section else ""
+        print(f"  [S{n}] {h.chunk.company} {h.chunk.year} p.{h.chunk.page}{section}  score={h.score:.3f}")
 
 
 def cmd_eval(args, s):

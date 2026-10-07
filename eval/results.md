@@ -8,11 +8,15 @@
 
 | Search mode | Questions | Hit@5 | Recall@5 | MRR |
 |---|---|---|---|---|
-| bm25 | 7 | 1.00 | 1.00 | 0.90 |
+| bm25 | 7 | 1.00 | 1.00 | 0.93 |
 | vector | 7 | 1.00 | 1.00 | 0.83 |
 | hybrid | 7 | 1.00 | 1.00 | 0.83 |
 
-Chunk size 600 vs 900 (hybrid): Hit@5 1.00 vs 1.00, MRR 0.90 vs 0.83.
+| Variant (hybrid search) | Hit@5 | MRR |
+|---|---|---|
+| Current: chunk 900, section prefix on | 1.00 | 0.83 |
+| Chunk size 600 | 1.00 | 0.90 |
+| Section prefix off | 1.00 | 0.83 |
 
 Best search mode: **bm25**. Hybrid missed 0 question(s). Details in [eval/results.md](results.md).
 
@@ -20,13 +24,13 @@ Best search mode: **bm25**. Hybrid missed 0 question(s). Details in [eval/result
 
 > Correct pages were found by keyword rules (`src/rag/autolabel.py`), not checked by hand, which favours keyword (BM25) search. Treat them as indicative.
 
-Index: `tfidf-lsa`, 6 chunks (size 900, overlap 150).
+Index: `tfidf-lsa`, 6 chunks (size 900, overlap 150, section prefix on).
 
 ## Retrieval
 
 | Mode | k | Questions | Hit@k | Recall@k | MRR |
 |---|---|---|---|---|---|
-| bm25 | 5 | 7 | 1.00 | 1.00 | 0.90 |
+| bm25 | 5 | 7 | 1.00 | 1.00 | 0.93 |
 | vector | 5 | 7 | 1.00 | 1.00 | 0.83 |
 | hybrid | 5 | 7 | 1.00 | 1.00 | 0.83 |
 
