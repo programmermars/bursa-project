@@ -5,6 +5,8 @@ Ask questions about risks, internal control and audit matters in Malaysian liste
 > Built by Chong Jia You (Industrial Statistics, UTHM) as a portfolio project. It extends an internal-audit report extraction prototype I built during my internship into a retrieval system that can be evaluated.
 >
 > **Full write-up** (pain points, design decisions, comparison with other approaches, limitations): [docs/PROJECT_WRITEUP.md](docs/PROJECT_WRITEUP.md)
+>
+> **Also in this repository:** [audit-analytics/](audit-analytics/), audit data analytics (duplicate payments, split purchases, ghost vendors, journal entry testing, Benford's law, planned-vs-actual estate operations) scored against planted irregularities.
 
 ## The problem
 

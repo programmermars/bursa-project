@@ -1,0 +1,6 @@
+data/*.csv
+output/exceptions.csv
+output/*.json
+__pycache__/
+*.egg-info/
+.pytest_cache/
