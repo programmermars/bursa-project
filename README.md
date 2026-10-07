@@ -3,6 +3,8 @@
 Ask questions about risks, internal control and audit matters in Malaysian listed companies' annual reports, and get answers that cite the exact report page. Runs fully locally and free (Ollama on a consumer GPU), or on any laptop with Groq's free tier.
 
 > Built by Chong Jia You (Industrial Statistics, UTHM) as a portfolio project. It extends an internal-audit report extraction prototype I built during my internship into a retrieval system that can be evaluated.
+>
+> **Full write-up** (pain points, design decisions, comparison with other approaches, limitations): [docs/PROJECT_WRITEUP.md](docs/PROJECT_WRITEUP.md)
 
 ## The problem
 
@@ -68,14 +70,14 @@ No GPU? Set `LLM_PROVIDER=groq` and a free key from [console.groq.com](https://c
 
 ## Evaluation
 
-`eval/questions.csv` holds hand-labelled questions: the company, the question and the page(s) where the answer is. Leave `expected_pages` empty for questions the reports cannot answer (tests abstention).
+`eval/questions.csv` holds hand-labelled questions: the company, the question and the page(s) where the answer is. Leave `expected_pages` empty for questions the reports cannot answer (tests abstention). To find the pages, use `python scripts/find_pages.py "Audit Committee" "met" --company KLK`, which prints page numbers and short snippets.
 
 ```bash
 rag eval                 # retrieval only: free, no LLM calls
 rag eval --with-llm      # also checks citations and abstention using your LLM_PROVIDER
 ```
 
-Results are written to [`eval/results.md`](eval/results.md), comparing BM25, vector and hybrid retrieval.
+Results are written to [`eval/results.md`](eval/results.md), comparing BM25, vector and hybrid retrieval and listing every missed question.
 
 | Metric | Meaning |
 |---|---|
@@ -98,7 +100,7 @@ src/rag/
   evaluate.py    retrieval and generation metrics
   cli.py         rag ingest | ask | eval | doctor
 app.py           Streamlit UI
-scripts/         sample report generator
+scripts/         sample report generator, page finder for labelling
 eval/            questions and results
 tests/           pytest suite (runs in CI with no downloads)
 ```

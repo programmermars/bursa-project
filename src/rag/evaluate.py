@@ -44,7 +44,8 @@ def retrieval_metrics(index: Index, questions: list[Question], k: int, mode: str
         hits += 1 if found else 0
         recall += len(set(found)) / len(q.expected_pages)
         rr += 1 / first if first else 0
-        per_q.append({"id": q.qid, "hit": bool(found), "first_rank": first, "retrieved_pages": pages})
+        per_q.append({"id": q.qid, "question": q.question, "hit": bool(found), "first_rank": first,
+                      "retrieved_pages": pages, "expected_pages": sorted(q.expected_pages)})
     n = max(len(answerable), 1)
     return {"mode": mode, "k": k, "n": len(answerable),
             "hit_at_k": hits / n, "recall_at_k": recall / n, "mrr": rr / n, "per_question": per_q}
@@ -86,6 +87,14 @@ def results_markdown(retrieval: list[dict], generation: dict | None, meta: dict)
     ]
     for r in retrieval:
         lines.append(f"| {r['mode']} | {r['k']} | {r['n']} | {r['hit_at_k']:.2f} | {r['recall_at_k']:.2f} | {r['mrr']:.2f} |")
+    misses = [(r["mode"], q) for r in retrieval for q in r["per_question"] if not q["hit"]]
+    if misses:
+        lines += ["", "## Missed questions", "",
+                  "Questions where no correct page was in the top k. Read these first when improving the system.", "",
+                  "| Mode | ID | Question | Retrieved pages | Expected pages |", "|---|---|---|---|---|"]
+        for mode, q in misses:
+            lines.append(f"| {mode} | {q['id']} | {q['question']} | {', '.join(map(str, q['retrieved_pages']))} "
+                         f"| {', '.join(map(str, q['expected_pages']))} |")
     if generation:
         ab = generation["abstention_accuracy"]
         lines += [

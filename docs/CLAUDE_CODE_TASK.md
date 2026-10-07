@@ -23,7 +23,7 @@ Download the latest full annual report PDF (not the summary) for KLK (Kuala Lump
 Write `eval\questions.csv` with columns `id,company,question,expected_pages`.
 - For each company, 7 answerable questions covering: principal risks, how one named risk is mitigated, number of Audit Committee meetings, internal audit function (in-house or outsourced, reports to whom, cost), key audit matters from the auditor's report, sustainability or climate risk, one specific figure (e.g. revenue or profit for the year).
 - Plus 3 unanswerable questions in total (blank `expected_pages`), e.g. "What is the company's policy on cryptocurrency investments?".
-- Find the correct page numbers with a small Python script using pypdf that searches page text for keywords (e.g. "Audit Committee", "met", "key audit matter", "internal audit function") and prints only page numbers and a 150-character snippet. Do NOT read whole reports. Use PDF page index starting at 1 (what the viewer shows), not the printed page number. Each question should list every page that contains the answer, separated by `;`.
+- Find the correct page numbers with `python scripts/find_pages.py <keywords...> --company <code>` (add `--any` to match any keyword), e.g. `"Audit Committee" "met"`, `"key audit matter"`, `"internal audit function"`. It prints only page numbers and a 150-character snippet. Do NOT read whole reports. Use PDF page index starting at 1 (what the viewer shows), not the printed page number. Each question should list every page that contains the answer, separated by `;`.
 
 ## 5. Evaluate
 1. `rag eval --with-llm` (uses local qwen2.5:7b; free).

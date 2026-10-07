@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from make_sample_report import main as make_sample  # noqa: E402
 from rag.config import Settings  # noqa: E402
-from rag.evaluate import load_questions, retrieval_metrics  # noqa: E402
+from rag.evaluate import load_questions, results_markdown, retrieval_metrics  # noqa: E402
 from rag.generate import answer, parse_citations  # noqa: E402
 from rag.index import Index, build_index  # noqa: E402
 from rag.ingest import parse_filename, split_text  # noqa: E402
@@ -86,3 +86,11 @@ def test_ollama_answer_parsing(index, monkeypatch):
     ans = answer(s, "key audit matters", hits, provider="ollama")
     assert ans.citations == [1, 7] and ans.invalid_citations == [7]
     assert ans.cited_pages[0][1] == hits[0].chunk.page
+
+
+def test_results_markdown_lists_misses(index):
+    s, idx = index
+    qs = load_questions(ROOT / "eval" / "sample_questions.csv")
+    qs[0].expected_pages = {999}  # force a miss
+    md = results_markdown([retrieval_metrics(idx, qs, k=3, mode="bm25")], None, idx.meta)
+    assert "## Missed questions" in md and "| 999 |" in md
