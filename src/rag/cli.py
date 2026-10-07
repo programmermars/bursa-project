@@ -1,5 +1,6 @@
-"""Command line: ingest, ask, eval, doctor.
+"""Command line: run, ingest, ask, eval, doctor.
 
+    python -m rag.cli run          # everything: check, index, questions, evaluate, update README
     python -m rag.cli ingest
     python -m rag.cli ask "What are the key risks?" --company KLK
     python -m rag.cli eval --questions eval/questions.csv [--with-llm]
@@ -18,7 +19,13 @@ from .config import ROOT, get_settings
 from .evaluate import generation_metrics, load_questions, results_markdown, retrieval_metrics
 from .generate import answer
 from .index import Index, build_index
+from .pipeline import resolve_backends, run_all
 from .retrieve import retrieve
+
+
+def cmd_run(args, s):
+    run_all(s, compare_size=None if args.no_compare else args.compare_chunk, with_llm=not args.no_llm,
+            update_docs=not args.no_docs)
 
 
 def cmd_ingest(args, s):
@@ -73,6 +80,9 @@ def cmd_doctor(args, s):
 def main(argv=None):
     p = argparse.ArgumentParser(prog="rag", description="Bursa annual report RAG")
     sub = p.add_subparsers(dest="cmd", required=True)
+    a = sub.add_parser("run", help="do everything after uploading PDFs to data/raw/")
+    a.add_argument("--no-llm", action="store_true"); a.add_argument("--no-docs", action="store_true")
+    a.add_argument("--compare-chunk", type=int, default=600); a.add_argument("--no-compare", action="store_true")
     a = sub.add_parser("ingest"); a.add_argument("--raw")
     a = sub.add_parser("ask"); a.add_argument("question"); a.add_argument("--company"); a.add_argument("--k", type=int)
     a.add_argument("--mode", choices=["vector", "bm25", "hybrid"]); a.add_argument("--provider", choices=["ollama", "groq", "none"])
@@ -82,8 +92,10 @@ def main(argv=None):
     sub.add_parser("doctor")
     args = p.parse_args(argv)
     s = get_settings()
+    if args.cmd in ("ingest", "ask", "eval"):
+        s = resolve_backends(s, log=lambda m: print(m, file=sys.stderr))
     try:
-        {"ingest": cmd_ingest, "ask": cmd_ask, "eval": cmd_eval, "doctor": cmd_doctor}[args.cmd](args, s)
+        {"run": cmd_run, "ingest": cmd_ingest, "ask": cmd_ask, "eval": cmd_eval, "doctor": cmd_doctor}[args.cmd](args, s)
     except (FileNotFoundError, RuntimeError, ValueError) as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)

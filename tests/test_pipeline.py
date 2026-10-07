@@ -94,3 +94,53 @@ def test_results_markdown_lists_misses(index):
     qs[0].expected_pages = {999}  # force a miss
     md = results_markdown([retrieval_metrics(idx, qs, k=3, mode="bm25")], None, idx.meta)
     assert "## Missed questions" in md and "| 999 |" in md
+
+
+def test_autolabel_matches_hand_labels(tmp_path):
+    from rag.autolabel import build_questions
+    make_sample(str(tmp_path))
+    auto = {r["id"].split("_", 1)[1]: r["expected_pages"] for r in build_questions(tmp_path)}
+    assert auto["risks"] == "3" and auto["ac_meetings"] == "4" and auto["ia_function"] == "5"
+    assert auto["kam"] == "6" and auto["revenue"] == "2" and auto["none"] == ""
+    assert "fx" not in auto  # the sample never mentions foreign exchange
+
+
+def test_sample_set_aside_when_real_reports_present(tmp_path):
+    from rag.pipeline import check_pdfs
+    make_sample(str(tmp_path))
+    real = tmp_path / "ACME_2024_annual_report.pdf"
+    (tmp_path / "DemoPlantation_2025_annual_report.pdf").rename(real)  # stands in for a real report
+    make_sample(str(tmp_path))
+    info = check_pdfs(tmp_path, log=lambda *_: None)
+    assert [r["company"] for r in info] == ["ACME"]
+    assert (tmp_path / "_sample" / "DemoPlantation_2025_annual_report.pdf").exists()
+
+
+def test_run_all_end_to_end(tmp_path, monkeypatch):
+    """Full pipeline with an unreachable Ollama (falls back to TF-IDF) and a mocked Groq LLM."""
+    from rag.pipeline import run_all
+    raw, ev = tmp_path / "raw", tmp_path / "eval"
+    make_sample(str(raw))
+
+    class FakeResp:
+        status_code = 200
+        def raise_for_status(self): pass
+        def json(self): return {"choices": [{"message": {"content": "Answer [S1]."}}]}
+
+    monkeypatch.setattr("rag.generate.requests.post", lambda *a, **k: FakeResp())
+    s = Settings(raw_dir=raw, index_dir=tmp_path / "index", embed_backend="ollama", llm_provider="groq",
+                 groq_api_key="test", ollama_url="http://127.0.0.1:9")
+    out = run_all(s, update_docs=False, eval_dir=ev, log=lambda *_: None)
+    assert out["settings"].embed_backend == "tfidf" and out["generation"]["citation_validity"] == 1.0
+    assert out["compare"]["other_size"] == 600 and not (tmp_path / "index_chunk600").exists()
+    assert (ev / "questions_auto.csv").exists() and "## Missed questions" not in (ev / "results.md").read_text()
+
+
+def test_rebuild_in_same_process(tmp_path):
+    """The app rebuilds the index while an old one is loaded; Chroma's client cache must not break that."""
+    make_sample(str(tmp_path / "raw"))
+    s = Settings(raw_dir=tmp_path / "raw", index_dir=tmp_path / "index", embed_backend="tfidf", llm_provider="none")
+    build_index(s, log=lambda *_: None)
+    Index(s)
+    build_index(s, log=lambda *_: None)
+    assert len(Index(s).chunks) > 0

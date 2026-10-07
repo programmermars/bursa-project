@@ -50,13 +50,14 @@ pip install -e ".[dev]"
 cp .env.example .env                                    # Windows: copy .env.example .env
 ```
 
-**Try it in one minute with no downloads** (fictional sample report, keyword + LSA search, no LLM):
+**Then just upload the reports.** Either way does everything else automatically:
 
-```bash
-python scripts/make_sample_report.py
-EMBED_BACKEND=tfidf LLM_PROVIDER=none rag ingest
-EMBED_BACKEND=tfidf LLM_PROVIDER=none streamlit run app.py
-```
+- **In the browser:** `streamlit run app.py`, upload the annual report PDFs in the sidebar, click **Build index and evaluate**.
+- **In the terminal:** put the PDFs in `data/raw/`, run `rag run`.
+
+Both check your setup, build the search index, write test questions with their correct pages (keyword rules in `src/rag/autolabel.py`), score bm25 / vector / hybrid search, ask the LLM every question if one is available, compare chunk sizes, and write the results into `eval/results.md`, this README and the [write-up](docs/PROJECT_WRITEUP.md). If Ollama is not running it falls back to Groq (if `GROQ_API_KEY` is set) or to search-only, instead of failing.
+
+**Try it with no reports** (fictional sample): `python scripts/make_sample_report.py`, then `rag run`.
 
 **Full setup with real reports:**
 
@@ -69,6 +70,32 @@ EMBED_BACKEND=tfidf LLM_PROVIDER=none streamlit run app.py
 No GPU? Set `LLM_PROVIDER=groq` and a free key from [console.groq.com](https://console.groq.com), or `LLM_PROVIDER=none` to show retrieved passages only. See [docs/HARDWARE.md](docs/HARDWARE.md).
 
 ## Evaluation
+
+### Latest results
+
+<!-- RESULTS:START -->
+*Last run: 2026-10-07 by `rag run`. Questions: auto-labelled (keyword rules). Search: `tfidf-lsa`. Answers: `none`.*
+
+| Report | Pages (with text) |
+|---|---|
+| DemoPlantation 2025 | 6 (6) |
+
+| Search mode | Questions | Hit@5 | Recall@5 | MRR |
+|---|---|---|---|---|
+| bm25 | 7 | 1.00 | 1.00 | 0.90 |
+| vector | 7 | 1.00 | 1.00 | 0.83 |
+| hybrid | 7 | 1.00 | 1.00 | 0.83 |
+
+Chunk size 600 vs 900 (hybrid): Hit@5 1.00 vs 1.00, MRR 0.90 vs 0.83.
+
+Best search mode: **bm25**. Hybrid missed 0 question(s). Details in [eval/results.md](eval/results.md).
+
+> These numbers come from the fictional sample report and only show that the pipeline works. Upload real annual reports and run `rag run` to replace them.
+
+> Correct pages were found by keyword rules (`src/rag/autolabel.py`), not checked by hand, which favours keyword (BM25) search. Treat them as indicative.
+<!-- RESULTS:END -->
+
+### How it is measured
 
 `eval/questions.csv` holds hand-labelled questions: the company, the question and the page(s) where the answer is. Leave `expected_pages` empty for questions the reports cannot answer (tests abstention). To find the pages, use `python scripts/find_pages.py "Audit Committee" "met" --company KLK`, which prints page numbers and short snippets.
 

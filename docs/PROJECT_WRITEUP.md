@@ -80,9 +80,9 @@ Step by step:
 
 ## 6. How it is evaluated
 
-`eval/questions.csv` lists `id, company, question, expected_pages`. Pages are found with `scripts/find_pages.py`, which searches the PDFs for keywords and prints page numbers with a short snippet, then checked by eye. Blank `expected_pages` marks a question the reports cannot answer.
+**No hand labelling needed.** `rag run` (or the app's upload button) writes the question set itself: `src/rag/autolabel.py` asks the same 8 question types of every report: principal risks, foreign exchange risk, Audit Committee meetings, internal audit function (in-house/outsourced, reporting line), internal audit cost, key audit matters, climate/sustainability risk and revenue. It finds the correct pages with keyword rules: a page counts when it contains every required phrase group (e.g. "Audit Committee" + "meeting/met"), and the best-matching 1–3 pages are kept. Each report also gets one question it cannot answer (e.g. cryptocurrency policy), kept only if the topic really does not appear in that report.
 
-Planned set (about 24 questions over KLK, Top Glove and Press Metal): for each company, principal risks, how one named risk is mitigated, number of Audit Committee meetings, internal audit function (in-house/outsourced, reporting line, cost), key audit matters, climate/sustainability risk, and one figure (e.g. revenue). Plus 3 unanswerable questions.
+These are *weak labels*. On the fictional sample they match the hand labels exactly, but on real reports a rule can pick a page that only mentions the topic. Because the labels come from keywords they also favour BM25 search, so the comparison is indicative. For publishable numbers, put hand-checked questions in `eval/questions.csv` (columns `id, company, question, expected_pages`; blank pages = unanswerable). `rag run` uses that file instead whenever it has rows. `scripts/find_pages.py` helps check pages quickly.
 
 | Metric | Question it answers |
 |---|---|
@@ -95,16 +95,31 @@ Planned set (about 24 questions over KLK, Top Glove and Press Metal): for each c
 
 `rag eval` compares BM25, vector and hybrid side by side and lists every missed question with retrieved vs expected pages, so the failures are visible, not just the averages.
 
-## 7. Results so far
+## 7. Results
 
-| Stage | Status |
+Filled in automatically by `rag run` after the reports are uploaded.
+
+<!-- RESULTS:START -->
+*Last run: 2026-10-07 by `rag run`. Questions: auto-labelled (keyword rules). Search: `tfidf-lsa`. Answers: `none`.*
+
+| Report | Pages (with text) |
 |---|---|
-| Code, tests (12 passing in CI), offline demo | Done |
-| End-to-end run on a fictional sample report (TF-IDF backend) | Done: hybrid Hit@5 = 1.00, MRR = 0.88 on 8 questions. This only checks the pipeline works; it says nothing about real reports. |
-| Real reports (KLK, Top Glove, Press Metal), 24 labelled questions, local LLM | In progress on the RTX 2060 desktop (`docs/CLAUDE_CODE_TASK.md`) |
-| Chunk size 600 vs 900 comparison | In progress, same run |
+| DemoPlantation 2025 | 6 (6) |
 
-Real-report numbers and a screenshot will replace the sample numbers in [`eval/results.md`](../eval/results.md) and the README.
+| Search mode | Questions | Hit@5 | Recall@5 | MRR |
+|---|---|---|---|---|
+| bm25 | 7 | 1.00 | 1.00 | 0.90 |
+| vector | 7 | 1.00 | 1.00 | 0.83 |
+| hybrid | 7 | 1.00 | 1.00 | 0.83 |
+
+Chunk size 600 vs 900 (hybrid): Hit@5 1.00 vs 1.00, MRR 0.90 vs 0.83.
+
+Best search mode: **bm25**. Hybrid missed 0 question(s). Details in [eval/results.md](../eval/results.md).
+
+> These numbers come from the fictional sample report and only show that the pipeline works. Upload real annual reports and run `rag run` to replace them.
+
+> Correct pages were found by keyword rules (`src/rag/autolabel.py`), not checked by hand, which favours keyword (BM25) search. Treat them as indicative.
+<!-- RESULTS:END -->
 
 ## 8. Limitations (honest list)
 

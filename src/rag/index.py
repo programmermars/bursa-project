@@ -8,6 +8,7 @@ import shutil
 from pathlib import Path
 
 import chromadb
+from chromadb.api.client import SharedSystemClient
 from rank_bm25 import BM25Okapi
 
 from .embeddings import make_embedder
@@ -27,6 +28,7 @@ def build_index(settings, raw_dir: Path | None = None, index_dir: Path | None = 
     log(f"Loaded {len(chunks)} chunks from {len({c.source for c in chunks})} PDF(s)")
 
     if index_dir.exists():
+        SharedSystemClient.clear_system_cache()  # drop cached clients so a rebuild in the same process starts clean
         shutil.rmtree(index_dir)
     index_dir.mkdir(parents=True)
 

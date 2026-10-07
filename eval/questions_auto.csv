@@ -1,0 +1,9 @@
+id,company,question,expected_pages,source
+DemoPlantation_risks,DemoPlantation,What are the principal risks disclosed and how are they mitigated?,3,auto
+DemoPlantation_ac_meetings,DemoPlantation,How many times did the Audit Committee meet during the financial year?,4,auto
+DemoPlantation_ia_function,DemoPlantation,"Is the internal audit function in-house or outsourced, and to whom does it report?",5,auto
+DemoPlantation_ia_cost,DemoPlantation,What was the total cost incurred for the internal audit function?,5,auto
+DemoPlantation_kam,DemoPlantation,What key audit matters did the external auditor report?,6,auto
+DemoPlantation_climate,DemoPlantation,What climate-related or sustainability risks does the company disclose?,3,auto
+DemoPlantation_revenue,DemoPlantation,What was the group's revenue for the financial year?,2,auto
+DemoPlantation_none,DemoPlantation,What is the company's policy on cryptocurrency investments?,,auto

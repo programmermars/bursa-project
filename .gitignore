@@ -8,3 +8,5 @@ __pycache__/
 .venv/
 venv/
 .streamlit/secrets.toml
+index_*/
+data/raw/_sample/
