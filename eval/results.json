@@ -1,0 +1,1076 @@
+{
+  "retrieval": [
+    {
+      "mode": "bm25",
+      "k": 5,
+      "n": 21,
+      "hit_at_k": 0.7619047619047619,
+      "recall_at_k": 0.6603174603174603,
+      "mrr": 0.5571428571428572,
+      "per_question": [
+        {
+          "id": "q01",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            66,
+            130,
+            129,
+            65,
+            129
+          ]
+        },
+        {
+          "id": "q02",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            131,
+            37,
+            20,
+            240,
+            186
+          ]
+        },
+        {
+          "id": "q03",
+          "hit": true,
+          "first_rank": 4,
+          "retrieved_pages": [
+            265,
+            114,
+            126,
+            134,
+            114
+          ]
+        },
+        {
+          "id": "q04",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            135,
+            127,
+            126,
+            265,
+            135
+          ]
+        },
+        {
+          "id": "q05",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            247,
+            245,
+            65,
+            243,
+            126
+          ]
+        },
+        {
+          "id": "q06",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            55,
+            62,
+            66,
+            64,
+            63
+          ]
+        },
+        {
+          "id": "q07",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            162,
+            220,
+            134,
+            134,
+            134
+          ]
+        },
+        {
+          "id": "q08",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            14,
+            45,
+            45,
+            48,
+            22
+          ]
+        },
+        {
+          "id": "q09",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            25,
+            18,
+            10,
+            11,
+            11
+          ]
+        },
+        {
+          "id": "q10",
+          "hit": true,
+          "first_rank": 5,
+          "retrieved_pages": [
+            45,
+            39,
+            42,
+            45,
+            43
+          ]
+        },
+        {
+          "id": "q11",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            21,
+            45,
+            43,
+            34,
+            13
+          ]
+        },
+        {
+          "id": "q12",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            56,
+            56,
+            57,
+            55,
+            55
+          ]
+        },
+        {
+          "id": "q13",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            15,
+            13,
+            15,
+            13,
+            15
+          ]
+        },
+        {
+          "id": "q14",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            4,
+            7,
+            41,
+            93,
+            7
+          ]
+        },
+        {
+          "id": "q15",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            21,
+            55,
+            118,
+            82,
+            48
+          ]
+        },
+        {
+          "id": "q16",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            24,
+            149,
+            88,
+            149,
+            148
+          ]
+        },
+        {
+          "id": "q17",
+          "hit": true,
+          "first_rank": 4,
+          "retrieved_pages": [
+            38,
+            38,
+            39,
+            51,
+            18
+          ]
+        },
+        {
+          "id": "q18",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            48,
+            53,
+            53,
+            55,
+            55
+          ]
+        },
+        {
+          "id": "q19",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            206,
+            51,
+            205,
+            206,
+            47
+          ]
+        },
+        {
+          "id": "q20",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            150,
+            148,
+            149,
+            150,
+            148
+          ]
+        },
+        {
+          "id": "q21",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            61,
+            113,
+            22,
+            82,
+            92
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "vector",
+      "k": 5,
+      "n": 21,
+      "hit_at_k": 0.7142857142857143,
+      "recall_at_k": 0.5277777777777777,
+      "mrr": 0.48968253968253966,
+      "per_question": [
+        {
+          "id": "q01",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            130,
+            129,
+            129,
+            134,
+            53
+          ]
+        },
+        {
+          "id": "q02",
+          "hit": true,
+          "first_rank": 4,
+          "retrieved_pages": [
+            45,
+            240,
+            71,
+            131,
+            186
+          ]
+        },
+        {
+          "id": "q03",
+          "hit": true,
+          "first_rank": 3,
+          "retrieved_pages": [
+            119,
+            115,
+            134,
+            126,
+            265
+          ]
+        },
+        {
+          "id": "q04",
+          "hit": true,
+          "first_rank": 3,
+          "retrieved_pages": [
+            265,
+            265,
+            135,
+            126,
+            66
+          ]
+        },
+        {
+          "id": "q05",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            243,
+            134,
+            100,
+            247,
+            104
+          ]
+        },
+        {
+          "id": "q06",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            105,
+            62,
+            66,
+            74,
+            63
+          ]
+        },
+        {
+          "id": "q07",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            221,
+            162,
+            53,
+            53,
+            19
+          ]
+        },
+        {
+          "id": "q08",
+          "hit": true,
+          "first_rank": 3,
+          "retrieved_pages": [
+            22,
+            22,
+            15,
+            4,
+            25
+          ]
+        },
+        {
+          "id": "q09",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            25,
+            4,
+            11,
+            11,
+            11
+          ]
+        },
+        {
+          "id": "q10",
+          "hit": true,
+          "first_rank": 5,
+          "retrieved_pages": [
+            34,
+            39,
+            41,
+            34,
+            43
+          ]
+        },
+        {
+          "id": "q11",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            45,
+            45,
+            44,
+            56,
+            49
+          ]
+        },
+        {
+          "id": "q12",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            56,
+            57,
+            45,
+            55,
+            55
+          ]
+        },
+        {
+          "id": "q13",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            22,
+            15,
+            22,
+            4,
+            21
+          ]
+        },
+        {
+          "id": "q14",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            4,
+            7,
+            125,
+            4,
+            4
+          ]
+        },
+        {
+          "id": "q15",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            21,
+            71,
+            84,
+            69,
+            90
+          ]
+        },
+        {
+          "id": "q16",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            84,
+            69,
+            90,
+            94,
+            84
+          ]
+        },
+        {
+          "id": "q17",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            51,
+            49,
+            212,
+            39,
+            40
+          ]
+        },
+        {
+          "id": "q18",
+          "hit": true,
+          "first_rank": 3,
+          "retrieved_pages": [
+            54,
+            79,
+            53,
+            69,
+            5
+          ]
+        },
+        {
+          "id": "q19",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            206,
+            206,
+            206,
+            207,
+            205
+          ]
+        },
+        {
+          "id": "q20",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            84,
+            90,
+            94,
+            84,
+            84
+          ]
+        },
+        {
+          "id": "q21",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            92,
+            134,
+            94,
+            104,
+            131
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "hybrid",
+      "k": 5,
+      "n": 21,
+      "hit_at_k": 0.7142857142857143,
+      "recall_at_k": 0.5650793650793651,
+      "mrr": 0.5714285714285714,
+      "per_question": [
+        {
+          "id": "q01",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            130,
+            129,
+            66,
+            53,
+            129
+          ]
+        },
+        {
+          "id": "q02",
+          "hit": true,
+          "first_rank": 4,
+          "retrieved_pages": [
+            240,
+            45,
+            186,
+            131,
+            37
+          ]
+        },
+        {
+          "id": "q03",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            265,
+            134,
+            114,
+            126,
+            126
+          ]
+        },
+        {
+          "id": "q04",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            265,
+            135,
+            126,
+            127,
+            135
+          ]
+        },
+        {
+          "id": "q05",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            243,
+            247,
+            245,
+            100,
+            134
+          ]
+        },
+        {
+          "id": "q06",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            62,
+            55,
+            63,
+            105,
+            66
+          ]
+        },
+        {
+          "id": "q07",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            220,
+            113,
+            53,
+            180,
+            221
+          ]
+        },
+        {
+          "id": "q08",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            22,
+            11,
+            22,
+            14,
+            45
+          ]
+        },
+        {
+          "id": "q09",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            25,
+            11,
+            11,
+            10,
+            11
+          ]
+        },
+        {
+          "id": "q10",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            34,
+            39,
+            45,
+            45,
+            38
+          ]
+        },
+        {
+          "id": "q11",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            45,
+            45,
+            43,
+            17,
+            49
+          ]
+        },
+        {
+          "id": "q12",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            56,
+            57,
+            55,
+            55,
+            56
+          ]
+        },
+        {
+          "id": "q13",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            15,
+            22,
+            26,
+            26,
+            22
+          ]
+        },
+        {
+          "id": "q14",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            7,
+            4,
+            4,
+            125,
+            93
+          ]
+        },
+        {
+          "id": "q15",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            21,
+            82,
+            73,
+            118,
+            69
+          ]
+        },
+        {
+          "id": "q16",
+          "hit": true,
+          "first_rank": 4,
+          "retrieved_pages": [
+            90,
+            84,
+            21,
+            24,
+            69
+          ]
+        },
+        {
+          "id": "q17",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            51,
+            39,
+            38,
+            39,
+            47
+          ]
+        },
+        {
+          "id": "q18",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            53,
+            48,
+            55,
+            54,
+            53
+          ]
+        },
+        {
+          "id": "q19",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            206,
+            206,
+            207,
+            206,
+            205
+          ]
+        },
+        {
+          "id": "q20",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            84,
+            89,
+            150,
+            90,
+            148
+          ]
+        },
+        {
+          "id": "q21",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            134,
+            104,
+            131,
+            171,
+            124
+          ]
+        }
+      ]
+    }
+  ],
+  "generation": {
+    "provider": "ollama",
+    "n_answerable": 21,
+    "n_unanswerable": 3,
+    "citation_validity": 1.0,
+    "citation_precision": 0.5142857142857142,
+    "abstention_accuracy": 1.0,
+    "answers": [
+      {
+        "id": "q01",
+        "answer": "*   The principal risks for the financial year 2025 reviewed by the Board include Sustainability and Climate Related Risks [S1].\n*   Specific considerations under this risk involve Human Rights, including respecting fundamental human rights and providing a safe and healthy environment for workers [S1].\n*   Mitigations implemented include a No Recruitment Fee policy across all operations to ensure guest workers are not imposed any recruitment fee or related costs [S1].",
+        "citations": [
+          [
+            "KLK",
+            130
+          ]
+        ]
+      },
+      {
+        "id": "q02",
+        "answer": "*   The Group mitigates the risk of price volatility through hedging in the futures market [S1].\n*   Where deemed prudent, the Group sells forward in the physical market [S1].\n*   The integrated business value chain enables diversification into different market segments to mitigate risks from volatilities in respective business segments [S2].",
+        "citations": [
+          [
+            "KLK",
+            240
+          ],
+          [
+            "KLK",
+            45
+          ]
+        ]
+      },
+      {
+        "id": "q03",
+        "answer": "*   The Audit and Risk Committee convened five (5) meetings during the financial year ended 30 September 2025 [S2].",
+        "citations": [
+          [
+            "KLK",
+            134
+          ]
+        ]
+      },
+      {
+        "id": "q04",
+        "answer": "*   KLK's internal audit function is an independent in-house Internal Audit Division (IAD) [S5].\n*   The IAD assists the Audit and Risk Committee (ARC) in discharging its duties and responsibilities [S5].\n*   The Internal Audit division also assists the Board in maintaining a system of internal control [S4].\n*   The total cost incurred for the Group Internal Audit function for the financial year ended 30 September 2025 was RM7.51 million [S2].",
+        "citations": [
+          [
+            "KLK",
+            135
+          ],
+          [
+            "KLK",
+            127
+          ],
+          [
+            "KLK",
+            135
+          ]
+        ]
+      },
+      {
+        "id": "q05",
+        "answer": "*   The auditors' report states there are no key audit matters to communicate in respect of the audit of the financial statements of the Company [S3].\n*   Key audit matters are defined as those matters that were of most significance in the audit of the financial statements of the Group and of the Company for the current financial year [S1].",
+        "citations": [
+          [
+            "KLK",
+            245
+          ],
+          [
+            "KLK",
+            243
+          ]
+        ]
+      },
+      {
+        "id": "q06",
+        "answer": "KLK identifies **physical and transition risks** that could influence its operations, supply chain, and financial performance [S1]. These risks are assessed through scenario analysis to test the resilience of its business model and strategy under multiple plausible climate futures [S1].\n\n**Governance Structure:**\n*   The Board of Directors oversees sustainability and climate-related strategy, ensuring risks are integrated into long-term planning [S2].\n*   The Audit and Risk Committee oversees sustainability and climate-related matters, reviewing risk management strategies and approving disclosure [S2].\n*   The Sustainability Steering Committee monitors, guides, and approves major policies considered through the Group's ERM processes [S2][S3].\n*   Internal Audit provides independent assurance over the effectiveness of the Group\u2019s risk management, control, and governance processes related to sustainability [S5].\n\n**Management Approach:**\n*   Scenario outputs are integrated into the Group\u2019s ERM framework to prioritise climate-related risks and opportunities [S3].\n*   The analysis is fully re-evaluated when there are significant changes in climate policy or science [S1].\n*   Sustainability functions set group-wide policies, provide tools and guidance, and monitor compliance with the sustainability-related risk management framework [S5].",
+        "citations": [
+          [
+            "KLK",
+            62
+          ],
+          [
+            "KLK",
+            55
+          ],
+          [
+            "KLK",
+            63
+          ],
+          [
+            "KLK",
+            66
+          ]
+        ]
+      },
+      {
+        "id": "q07",
+        "answer": "Not found in the provided reports.",
+        "citations": []
+      },
+      {
+        "id": "q08",
+        "answer": "",
+        "citations": []
+      },
+      {
+        "id": "q09",
+        "answer": "*   The Group is vulnerable to volatility in commodity prices, particularly for essential raw materials such as natural rubber latex and nitrile latex [S1].\n*   Improving utilisation will ease pricing pressure and strengthen cost efficiency amidst heightened competition and raw material price volatility [S4].\n*   The consistent hedging policy adopted by the Group cushions currency movements rather than raw material prices [S4].\n*   Raw material and natural gas prices are expected to remain stable in general [S4].",
+        "citations": [
+          [
+            "TopGlove",
+            25
+          ],
+          [
+            "TopGlove",
+            10
+          ]
+        ]
+      },
+      {
+        "id": "q10",
+        "answer": "Not found in the provided reports.",
+        "citations": []
+      },
+      {
+        "id": "q11",
+        "answer": "*   The Internal Audit Department (\"IAD\") comprises six (6) members [S1].\n*   It is led by Ms Frances Liew Mai Heang and Mr Puon Tuck Seng [S1].\n*   The IAD reports to the Board Audit Committee (BAC) [S1].",
+        "citations": [
+          [
+            "TopGlove",
+            45
+          ]
+        ]
+      },
+      {
+        "id": "q12",
+        "answer": "*   There are no key audit matters to communicate in the report on the financial statements of the Company [S4].\n*   Key audit matters for the audit of the financial statements of the Group are described below [S4].\n*   One matter identified is the review of costing of finished goods inventories [S5].\n*   Significant estimates are involved in determining the basis of allocating costs of production to products produced by the Group [S5].\n*   The Group relies heavily on its information technology system (\"IT system\") to ensure that costs are correctly allocated [S5].",
+        "citations": [
+          [
+            "TopGlove",
+            55
+          ],
+          [
+            "TopGlove",
+            56
+          ]
+        ]
+      },
+      {
+        "id": "q13",
+        "answer": "*   Top Glove acknowledges that climate and nature-related risks are increasingly shaping the business landscape [S3].\n*   They are mindful of economic, environmental, and social issues arising from physical impacts of climate change [S1].\n*   They develop strategies to expand climate finance, including adaptations solutions [S1].\n*   Accordingly, they strictly manage emissions from business operations and are prudent with resource consumption [S1].\n*   They maintain and expand ISO 14001:2015 Environmental Management System across factory operations [S4].\n*   They implement comprehensive water management initiatives to reduce municipal water consumption and improve efficiency [S4].\n*   They promote high energy efficiency practices through equipment upgrades, digitalisation, automation, real-time monitoring, and preventive maintenance [S4].\n*   They expand renewable energy adoption (solar, biomass) across glove manufacturing facilities [S4].",
+        "citations": [
+          [
+            "TopGlove",
+            26
+          ],
+          [
+            "TopGlove",
+            15
+          ],
+          [
+            "TopGlove",
+            26
+          ]
+        ]
+      },
+      {
+        "id": "q14",
+        "answer": "*   Top Glove's sales revenue for FY2025 was RM3.5 billion [S1].\n*   This represents a 39% year-on-year increase [S2].\n*   The Group achieved this growth despite a challenging and competitive landscape [S2].",
+        "citations": [
+          [
+            "TopGlove",
+            7
+          ],
+          [
+            "TopGlove",
+            4
+          ]
+        ]
+      },
+      {
+        "id": "q15",
+        "answer": "*   Press Metal identified cyber-related risks associated with digital systems and cybersecurity [S2].\n    *   Key exposures include weaknesses in IT governance, gaps in detection and response capabilities, malware intrusion, unauthorised access to digital ecosystems, and misappropriation of physical or digital assets [S2].\n    *   Potential impacts include interrupting production activities, compromising confidential information, elevating operating costs, or triggering regulatory concerns [S2].\n*   Sourcing-related risks include price volatility, material shortages, power supply disruptions, logistics interruptions, and the unavailability of equipment [S3].\n*   Sustainability-related risks involve the ability to uphold ethical business conduct, respect human rights, and maintain environmental stewardship throughout the value chain [S3].\n*   Press Metal facilitates risk assessments and monitors human rights-related matters across its value chain [S4].\n*   The Group aligns corporate governance and sustainability practices with frameworks such as MCCG 2021, IFRS S1, and IFRS S2 [S5].",
+        "citations": [
+          [
+            "PressMetal",
+            82
+          ],
+          [
+            "PressMetal",
+            73
+          ],
+          [
+            "PressMetal",
+            118
+          ],
+          [
+            "PressMetal",
+            69
+          ]
+        ]
+      },
+      {
+        "id": "q16",
+        "answer": "*   Press Metal integrates and continuously assesses climate-related risks within strategic planning and risk monitoring processes, including climate strategy and scenario analysis [S4].\n*   This approach aims to manage exposure arising from greater compliance complexity and costs due to evolving regulatory and disclosure requirements [S4].\n*   The Group aligns corporate governance and sustainability practices, including sustainability reporting and climate-related disclosures, with recognised frameworks and standards such as MCCG 2021, IFRS S1, and IFRS S2 [S5].\n*   These alignments provide a sound basis for identifying, managing and disclosing both SROs and CROs [S5].",
+        "citations": [
+          [
+            "PressMetal",
+            24
+          ],
+          [
+            "PressMetal",
+            69
+          ]
+        ]
+      },
+      {
+        "id": "q17",
+        "answer": "Press Metal held six (6) Audit Committee meetings in FYE2025 [S1].",
+        "citations": [
+          [
+            "PressMetal",
+            51
+          ]
+        ]
+      },
+      {
+        "id": "q18",
+        "answer": "*   Press Metal utilizes both an in-house Internal Audit Department and outsourced Internal Auditors for specialised expertise. [S2]\n*   The outsourced internal audit services are provided by Baker Tilly Monteiro Heng Governance Sdn. Bhd. (\u201cBTMHG\u201d). [S1]\n*   The in-house Internal Audit function is headed by Internal Audit Manager, Mr. William Tu Heng Yew. [S1]",
+        "citations": [
+          [
+            "PressMetal",
+            48
+          ],
+          [
+            "PressMetal",
+            53
+          ]
+        ]
+      },
+      {
+        "id": "q19",
+        "answer": "Not found in the provided reports.",
+        "citations": []
+      },
+      {
+        "id": "q20",
+        "answer": "*   Press Metal centres its climate change agenda on the identification, assessment, and management of physical and transition risks affecting operational continuity, asset integrity, cost competitiveness, and sustainable long-term value [S1].\n*   The Group recognises that climate risk requires ongoing oversight, robust planning, and timely mitigation due to increasing frequency and severity of climate-related events [S1].\n*   Assessment includes scenario analysis (such as IPCC RCP 8.5) to project significant global temperature rises and environmental impacts, providing a balanced perspective on plausible climate futures [S2].\n*   This approach supports the development of robust strategic, operational, and investment responses to navigate physical and transition dimensions of climate change [S2].\n*   Climate-related risks assessed as higher priority are reviewed by the Board and the RMC through established governance processes [S4].\n*   Continuous monitoring facilitates informed strategic decision-making and the implementation of appropriate mitigation and adaptation measures [S4].",
+        "citations": [
+          [
+            "PressMetal",
+            84
+          ],
+          [
+            "PressMetal",
+            89
+          ],
+          [
+            "PressMetal",
+            90
+          ]
+        ]
+      },
+      {
+        "id": "q21",
+        "answer": "",
+        "citations": []
+      },
+      {
+        "id": "q22",
+        "answer": "Not found in the provided reports.",
+        "citations": []
+      },
+      {
+        "id": "q23",
+        "answer": "Not found in the provided reports.",
+        "citations": []
+      },
+      {
+        "id": "q24",
+        "answer": "Not found in the provided reports.",
+        "citations": []
+      }
+    ]
+  }
+}

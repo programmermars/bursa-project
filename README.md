@@ -1,5 +1,7 @@
 # Bursa Annual Report Risk Assistant
 
+![Demo](docs/screenshot.png)
+
 Ask questions about risks, internal control and audit matters in Malaysian listed companies' annual reports, and get answers that cite the exact report page. Runs fully locally and free (Ollama on a consumer GPU), or on any laptop with Groq's free tier.
 
 > Built by Chong Jia You (Industrial Statistics, UTHM) as a portfolio project. It extends an internal-audit report extraction prototype I built during my internship into a retrieval system that can be evaluated.
@@ -76,6 +78,22 @@ rag eval --with-llm      # also checks citations and abstention using your LLM_P
 ```
 
 Results are written to [`eval/results.md`](eval/results.md), comparing BM25, vector and hybrid retrieval.
+
+Results on 24 hand-labelled questions (21 answerable + 3 unanswerable) over the FY2025 annual reports of KLK, Top Glove and Press Metal (4,237 chunks, size 900), with `qwen3.5:4b` as the local LLM:
+
+| Mode | k | Questions | Hit@k | Recall@k | MRR |
+|---|---|---|---|---|---|
+| bm25 | 5 | 21 | 0.76 | 0.66 | 0.56 |
+| vector | 5 | 21 | 0.71 | 0.53 | 0.49 |
+| hybrid | 5 | 21 | 0.71 | 0.57 | 0.57 |
+
+| Generation metric | Value |
+|---|---|
+| Citation validity (cited source exists) | 1.00 |
+| Citation precision (cited page is a correct page) | 0.51 |
+| Abstention accuracy (says 'not found' when it should) | 1.00 |
+
+Chunk size 600 vs 900: hybrid Hit@5 0.81 vs 0.71, MRR 0.64 vs 0.57 (see [`eval/results_600.md`](eval/results_600.md)).
 
 | Metric | Meaning |
 |---|---|

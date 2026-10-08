@@ -1,0 +1,791 @@
+{
+  "retrieval": [
+    {
+      "mode": "bm25",
+      "k": 5,
+      "n": 21,
+      "hit_at_k": 0.8095238095238095,
+      "recall_at_k": 0.6817460317460317,
+      "mrr": 0.6325396825396825,
+      "per_question": [
+        {
+          "id": "q01",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            130,
+            66,
+            65,
+            129,
+            177
+          ]
+        },
+        {
+          "id": "q02",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            131,
+            240,
+            59,
+            20,
+            37
+          ]
+        },
+        {
+          "id": "q03",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            126,
+            134,
+            265,
+            129,
+            265
+          ]
+        },
+        {
+          "id": "q04",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            135,
+            135,
+            135,
+            127,
+            126
+          ]
+        },
+        {
+          "id": "q05",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            247,
+            245,
+            247,
+            243,
+            133
+          ]
+        },
+        {
+          "id": "q06",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            62,
+            55,
+            55,
+            66,
+            65
+          ]
+        },
+        {
+          "id": "q07",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            162,
+            134,
+            220,
+            138,
+            53
+          ]
+        },
+        {
+          "id": "q08",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            45,
+            14,
+            45,
+            3,
+            48
+          ]
+        },
+        {
+          "id": "q09",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            18,
+            25,
+            11,
+            11,
+            25
+          ]
+        },
+        {
+          "id": "q10",
+          "hit": true,
+          "first_rank": 3,
+          "retrieved_pages": [
+            42,
+            45,
+            43,
+            43,
+            43
+          ]
+        },
+        {
+          "id": "q11",
+          "hit": true,
+          "first_rank": 5,
+          "retrieved_pages": [
+            34,
+            13,
+            43,
+            21,
+            45
+          ]
+        },
+        {
+          "id": "q12",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            56,
+            56,
+            55,
+            56,
+            55
+          ]
+        },
+        {
+          "id": "q13",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            15,
+            15,
+            26,
+            26,
+            13
+          ]
+        },
+        {
+          "id": "q14",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            7,
+            7,
+            22,
+            14,
+            4
+          ]
+        },
+        {
+          "id": "q15",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            21,
+            55,
+            48,
+            48,
+            69
+          ]
+        },
+        {
+          "id": "q16",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            24,
+            88,
+            149,
+            16,
+            91
+          ]
+        },
+        {
+          "id": "q17",
+          "hit": true,
+          "first_rank": 4,
+          "retrieved_pages": [
+            38,
+            74,
+            18,
+            51,
+            120
+          ]
+        },
+        {
+          "id": "q18",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            53,
+            48,
+            55,
+            55,
+            52
+          ]
+        },
+        {
+          "id": "q19",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            206,
+            206,
+            205,
+            56,
+            51
+          ]
+        },
+        {
+          "id": "q20",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            150,
+            150,
+            150,
+            150,
+            150
+          ]
+        },
+        {
+          "id": "q21",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            13,
+            92,
+            100,
+            61,
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "vector",
+      "k": 5,
+      "n": 21,
+      "hit_at_k": 0.6666666666666666,
+      "recall_at_k": 0.47222222222222227,
+      "mrr": 0.4936507936507937,
+      "per_question": [
+        {
+          "id": "q01",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            130,
+            53,
+            129,
+            134,
+            129
+          ]
+        },
+        {
+          "id": "q02",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            78,
+            131,
+            71,
+            60,
+            186
+          ]
+        },
+        {
+          "id": "q03",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            115,
+            134,
+            115,
+            119,
+            134
+          ]
+        },
+        {
+          "id": "q04",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            265,
+            265,
+            126,
+            126,
+            126
+          ]
+        },
+        {
+          "id": "q05",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            243,
+            247,
+            245,
+            134,
+            100
+          ]
+        },
+        {
+          "id": "q06",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            105,
+            74,
+            66,
+            62,
+            129
+          ]
+        },
+        {
+          "id": "q07",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            221,
+            53,
+            113,
+            53,
+            99
+          ]
+        },
+        {
+          "id": "q08",
+          "hit": true,
+          "first_rank": 3,
+          "retrieved_pages": [
+            22,
+            26,
+            15,
+            4,
+            16
+          ]
+        },
+        {
+          "id": "q09",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            25,
+            11,
+            4,
+            11,
+            11
+          ]
+        },
+        {
+          "id": "q10",
+          "hit": true,
+          "first_rank": 3,
+          "retrieved_pages": [
+            34,
+            34,
+            43,
+            34,
+            39
+          ]
+        },
+        {
+          "id": "q11",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            45,
+            43,
+            44,
+            49,
+            56
+          ]
+        },
+        {
+          "id": "q12",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            56,
+            55,
+            43,
+            55,
+            56
+          ]
+        },
+        {
+          "id": "q13",
+          "hit": true,
+          "first_rank": 5,
+          "retrieved_pages": [
+            26,
+            22,
+            22,
+            4,
+            15
+          ]
+        },
+        {
+          "id": "q14",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            4,
+            7,
+            7,
+            4,
+            4
+          ]
+        },
+        {
+          "id": "q15",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            69,
+            21,
+            84,
+            84,
+            90
+          ]
+        },
+        {
+          "id": "q16",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            84,
+            69,
+            84,
+            94,
+            94
+          ]
+        },
+        {
+          "id": "q17",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            51,
+            49,
+            22,
+            51,
+            52
+          ]
+        },
+        {
+          "id": "q18",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            70,
+            54,
+            79,
+            69,
+            54
+          ]
+        },
+        {
+          "id": "q19",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            206,
+            206,
+            206,
+            206,
+            70
+          ]
+        },
+        {
+          "id": "q20",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            84,
+            90,
+            94,
+            21,
+            89
+          ]
+        },
+        {
+          "id": "q21",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            94,
+            13,
+            74,
+            134,
+            92
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "hybrid",
+      "k": 5,
+      "n": 21,
+      "hit_at_k": 0.8095238095238095,
+      "recall_at_k": 0.6341269841269841,
+      "mrr": 0.6444444444444444,
+      "per_question": [
+        {
+          "id": "q01",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            130,
+            129,
+            66,
+            65,
+            53
+          ]
+        },
+        {
+          "id": "q02",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            131,
+            240,
+            186,
+            78,
+            71
+          ]
+        },
+        {
+          "id": "q03",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            134,
+            265,
+            56,
+            55,
+            115
+          ]
+        },
+        {
+          "id": "q04",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            265,
+            135,
+            126,
+            126,
+            135
+          ]
+        },
+        {
+          "id": "q05",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            247,
+            243,
+            245,
+            247,
+            265
+          ]
+        },
+        {
+          "id": "q06",
+          "hit": true,
+          "first_rank": 3,
+          "retrieved_pages": [
+            62,
+            105,
+            55,
+            130,
+            66
+          ]
+        },
+        {
+          "id": "q07",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            113,
+            53,
+            162,
+            154,
+            152
+          ]
+        },
+        {
+          "id": "q08",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            22,
+            25,
+            22,
+            45,
+            26
+          ]
+        },
+        {
+          "id": "q09",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            25,
+            11,
+            11,
+            85,
+            11
+          ]
+        },
+        {
+          "id": "q10",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            34,
+            43,
+            45,
+            45,
+            38
+          ]
+        },
+        {
+          "id": "q11",
+          "hit": true,
+          "first_rank": 2,
+          "retrieved_pages": [
+            43,
+            45,
+            17,
+            49,
+            45
+          ]
+        },
+        {
+          "id": "q12",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            56,
+            55,
+            56,
+            55,
+            43
+          ]
+        },
+        {
+          "id": "q13",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            15,
+            26,
+            26,
+            26,
+            22
+          ]
+        },
+        {
+          "id": "q14",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            7,
+            7,
+            4,
+            22,
+            4
+          ]
+        },
+        {
+          "id": "q15",
+          "hit": false,
+          "first_rank": null,
+          "retrieved_pages": [
+            21,
+            21,
+            69,
+            73,
+            69
+          ]
+        },
+        {
+          "id": "q16",
+          "hit": true,
+          "first_rank": 5,
+          "retrieved_pages": [
+            69,
+            21,
+            90,
+            84,
+            24
+          ]
+        },
+        {
+          "id": "q17",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            51,
+            120,
+            57,
+            18,
+            38
+          ]
+        },
+        {
+          "id": "q18",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            53,
+            54,
+            54,
+            70,
+            48
+          ]
+        },
+        {
+          "id": "q19",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            206,
+            206,
+            205,
+            207,
+            206
+          ]
+        },
+        {
+          "id": "q20",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            84,
+            150,
+            90,
+            150,
+            94
+          ]
+        },
+        {
+          "id": "q21",
+          "hit": true,
+          "first_rank": 1,
+          "retrieved_pages": [
+            13,
+            94,
+            132,
+            128,
+            81
+          ]
+        }
+      ]
+    }
+  ],
+  "generation": null
+}
