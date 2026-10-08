@@ -121,6 +121,15 @@ eval/            questions and results
 tests/           pytest suite (runs in CI with no downloads)
 ```
 
+## Results and lessons
+
+- **Smaller chunks helped.** Going from 900 to 600 characters raised hybrid Hit@5 from 0.81 to 0.95 and MRR from 0.67 to 0.76 on the same 24 questions.
+- **Hybrid beats either method alone** on Hit@5 and MRR. BM25 is strong on exact terms such as "Audit Committee"; vector search is weaker on its own (Recall@5 0.50).
+- **Labels matter.** Reviewing the misses showed that some "failures" were pages I had not labelled (extra risk-discussion pages in Top Glove and Press Metal). I fixed the labels after checking the page text, so part of the gain over the first run is better ground truth, not a better retriever.
+- **Known failure:** "What was KLK's Group revenue?" still retrieves governance and tax-note pages instead of the financial-highlights pages. Numeric questions are the weak spot; a table-aware chunker or a re-ranker would be the next step.
+- **Local LLM is slow.** `qwen3.5:4b` takes a few minutes per answer on an RTX 2060 (6 GB). Citation precision is 0.62, so the model sometimes cites a nearby page rather than the exact one.
+- **Small sample.** 21 answerable questions over 3 reports is enough to compare settings, not to claim general accuracy.
+
 ## Limitations
 
 - Tables and charts in PDFs are extracted as plain text, so numeric tables can be garbled.
