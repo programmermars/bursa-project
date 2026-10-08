@@ -27,7 +27,7 @@ class Settings:
     index_dir: Path = field(default_factory=lambda: Path(_env("RAG_INDEX_DIR", str(ROOT / "index"))))
 
     # Chunking
-    chunk_size: int = int(_env("RAG_CHUNK_SIZE", "900"))
+    chunk_size: int = int(_env("RAG_CHUNK_SIZE", "600"))
     chunk_overlap: int = int(_env("RAG_CHUNK_OVERLAP", "150"))
 
     # Embeddings: ollama | hf | tfidf

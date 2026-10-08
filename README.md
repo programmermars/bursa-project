@@ -17,7 +17,7 @@ This project answers from the reports only, cites every claim as `[company, page
 ```mermaid
 flowchart LR
     A[Annual report PDFs] --> B[Page-aware parsing<br/>pypdf]
-    B --> C[Chunking<br/>~900 chars, 150 overlap]
+    B --> C[Chunking<br/>~600 chars, 150 overlap]
     C --> D[Embeddings<br/>nomic-embed-text via Ollama]
     C --> E[BM25 keyword index]
     D --> F[(Chroma vector DB<br/>HNSW, cosine)]
@@ -79,21 +79,21 @@ rag eval --with-llm      # also checks citations and abstention using your LLM_P
 
 Results are written to [`eval/results.md`](eval/results.md), comparing BM25, vector and hybrid retrieval.
 
-Results on 24 hand-labelled questions (21 answerable + 3 unanswerable) over the FY2025 annual reports of KLK, Top Glove and Press Metal (4,237 chunks, size 900), with `qwen3.5:4b` as the local LLM:
+Results on 24 hand-labelled questions (21 answerable + 3 unanswerable) over the FY2025 annual reports of KLK, Top Glove and Press Metal (7,107 chunks, size 600), with `qwen3.5:4b` as the local LLM:
 
 | Mode | k | Questions | Hit@k | Recall@k | MRR |
 |---|---|---|---|---|---|
-| bm25 | 5 | 21 | 0.76 | 0.66 | 0.56 |
-| vector | 5 | 21 | 0.71 | 0.53 | 0.49 |
-| hybrid | 5 | 21 | 0.71 | 0.57 | 0.57 |
+| bm25 | 5 | 21 | 0.86 | 0.69 | 0.68 |
+| vector | 5 | 21 | 0.76 | 0.50 | 0.59 |
+| hybrid | 5 | 21 | 0.95 | 0.68 | 0.76 |
 
 | Generation metric | Value |
 |---|---|
 | Citation validity (cited source exists) | 1.00 |
-| Citation precision (cited page is a correct page) | 0.51 |
+| Citation precision (cited page is a correct page) | 0.62 |
 | Abstention accuracy (says 'not found' when it should) | 1.00 |
 
-Chunk size 600 vs 900: hybrid Hit@5 0.81 vs 0.71, MRR 0.64 vs 0.57 (see [`eval/results_600.md`](eval/results_600.md)).
+Chunk size 600 vs 900: hybrid Hit@5 0.95 vs 0.81, MRR 0.76 vs 0.67 (900 results in [`eval/results_900.md`](eval/results_900.md)).
 
 | Metric | Meaning |
 |---|---|

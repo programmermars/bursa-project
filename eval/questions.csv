@@ -6,14 +6,14 @@ q04,KLK,"Is KLK's internal audit function in-house or outsourced, who does it as
 q05,KLK,What key audit matters are reported in the auditors' report of KLK?,243;244;245
 q06,KLK,What climate-related risks does KLK identify and how are they governed?,54;55;65;67;130
 q07,KLK,What was KLK's Group revenue for the financial year ended 30 September 2025?,6;27;143
-q08,TopGlove,What are the material risks and mitigation plans identified by Top Glove?,15;16;17;18
-q09,TopGlove,How does Top Glove mitigate raw material price volatility such as nitrile and natural rubber?,18
+q08,TopGlove,What are the material risks and mitigation plans identified by Top Glove?,15;16;17;18;25
+q09,TopGlove,How does Top Glove mitigate raw material price volatility such as nitrile and natural rubber?,18;25
 q10,TopGlove,How many times did the Board Audit Committee meet in FY2025?,43
 q11,TopGlove,How is Top Glove's internal audit department composed and to whom does it report?,45
 q12,TopGlove,What key audit matters are reported in Top Glove's independent auditors' report?,55;56
 q13,TopGlove,How does Top Glove address the physical impacts of climate change?,13;15
 q14,TopGlove,What was Top Glove's sales revenue for FY2025?,2;4;7
-q15,PressMetal,What are the key risks and sustainability-related risks identified by Press Metal?,20;24;25;26;27;28
+q15,PressMetal,What are the key risks and sustainability-related risks identified by Press Metal?,20;21;24;25;26;27;28;69
 q16,PressMetal,What mitigation actions does Press Metal take against climate-related regulatory and disclosure risks?,24
 q17,PressMetal,How many Audit Committee meetings did Press Metal hold in FYE2025?,51
 q18,PressMetal,"Does Press Metal use an in-house or outsourced internal audit function, and who provides the outsourced service?",48;53
