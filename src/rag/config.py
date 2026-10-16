@@ -42,7 +42,7 @@ class Settings:
     # Generation: ollama | groq | none
     llm_provider: str = _env("LLM_PROVIDER", "ollama")
     ollama_url: str = _env("OLLAMA_URL", "http://localhost:11434")
-    ollama_llm_model: str = _env("OLLAMA_LLM_MODEL", "qwen2.5:7b")
+    ollama_llm_model: str = _env("OLLAMA_LLM_MODEL", "qwen3.5:4b")
     groq_api_key: str = _env("GROQ_API_KEY", "")
     groq_model: str = _env("GROQ_MODEL", "llama-3.3-70b-versatile")
     temperature: float = float(_env("LLM_TEMPERATURE", "0"))

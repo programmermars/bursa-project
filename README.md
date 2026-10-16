@@ -24,7 +24,7 @@ flowchart LR
     Q[Question] --> G{Hybrid retrieval}
     F --> G
     E --> G
-    G -->|Reciprocal Rank Fusion<br/>top-k chunks + page metadata| H[LLM<br/>Ollama qwen2.5:7b / Groq / none]
+    G -->|Reciprocal Rank Fusion<br/>top-k chunks + page metadata| H[LLM<br/>Ollama qwen3.5:4b / Groq / none]
     H --> I["Answer with S1, S2 citations<br/>mapped back to company + page"]
     I --> J[Citation check<br/>flags sources that do not exist]
 ```
@@ -60,7 +60,7 @@ EMBED_BACKEND=tfidf LLM_PROVIDER=none streamlit run app.py
 
 **Full setup with real reports:**
 
-1. Install [Ollama](https://ollama.com), then `ollama pull nomic-embed-text` and `ollama pull qwen2.5:7b`.
+1. Install [Ollama](https://ollama.com), then `ollama pull nomic-embed-text` and `ollama pull qwen3.5:4b`.
 2. Put annual report PDFs in `data/raw/`, named `COMPANY_YEAR_anything.pdf` (see [data/README.md](data/README.md)).
 3. `rag doctor` checks your setup.
 4. `rag ingest` builds the index.
@@ -69,6 +69,8 @@ EMBED_BACKEND=tfidf LLM_PROVIDER=none streamlit run app.py
 No GPU? Set `LLM_PROVIDER=groq` and a free key from [console.groq.com](https://console.groq.com), or `LLM_PROVIDER=none` to show retrieved passages only. See [docs/HARDWARE.md](docs/HARDWARE.md).
 
 ## Evaluation
+
+The default local LLM is `qwen3.5:4b`, the model used for the results below. Change it with `OLLAMA_LLM_MODEL` in `.env`.
 
 `eval/questions.csv` holds hand-labelled questions: the company, the question and the page(s) where the answer is. Leave `expected_pages` empty for questions the reports cannot answer (tests abstention).
 

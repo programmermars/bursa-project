@@ -6,7 +6,7 @@
 2. 安装 Ollama：https://ollama.com ，装好后在终端运行：
    ```
    ollama pull nomic-embed-text
-   ollama pull qwen2.5:7b
+   ollama pull qwen3.5:4b
    ```
 3. 下载项目并安装：
    ```

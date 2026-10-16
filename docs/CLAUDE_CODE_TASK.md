@@ -10,7 +10,7 @@ You are setting up and evaluating my RAG portfolio project on this Windows PC (N
 1. Check `python --version` (need 3.10+), `git --version`, `ollama --version`. If Ollama is missing, install it with `winget install Ollama.Ollama`. If Python is missing, `winget install Python.Python.3.11`.
 2. `git clone https://github.com/programmermars/bursa-project.git` and `cd bursa-project`.
 3. `python -m venv .venv`, activate it, `pip install -e ".[dev]"`, `copy .env.example .env`.
-4. `ollama pull nomic-embed-text` and `ollama pull qwen2.5:7b`. Make sure `ollama serve` is running.
+4. `ollama pull nomic-embed-text` and `ollama pull qwen3.5:4b`. Make sure `ollama serve` is running.
 5. Run `pytest -q` (expect all passed) and `rag doctor`. Fix anything red.
 
 ## 2. Get three annual reports
@@ -26,7 +26,7 @@ Write `eval\questions.csv` with columns `id,company,question,expected_pages`.
 - Find the correct page numbers with a small Python script using pypdf that searches page text for keywords (e.g. "Audit Committee", "met", "key audit matter", "internal audit function") and prints only page numbers and a 150-character snippet. Do NOT read whole reports. Use PDF page index starting at 1 (what the viewer shows), not the printed page number. Each question should list every page that contains the answer, separated by `;`.
 
 ## 5. Evaluate
-1. `rag eval --with-llm` (uses local qwen2.5:7b; free).
+1. `rag eval --with-llm` (uses local qwen3.5:4b; free).
 2. Also try a chunk-size comparison: set `RAG_CHUNK_SIZE=600` in `.env`, `rag ingest`, `rag eval --out eval\results_600.md`; then set it back to 900 and `rag ingest` again.
 
 ## 6. Screenshot and README
@@ -42,7 +42,7 @@ REPORT
 reports: <company year pages> x3
 chunks: <n>
 retrieval (k=5): bm25 Hit/Recall/MRR = ... | vector = ... | hybrid = ...
-generation (qwen2.5:7b): citation_validity=..., citation_precision=..., abstention=...
+generation (qwen3.5:4b): citation_validity=..., citation_precision=..., abstention=...
 chunk600 hybrid: Hit=..., MRR=...
 questions: <n answerable> + <n unanswerable>
 worst 3 questions (id, question, retrieved pages vs expected): ...
